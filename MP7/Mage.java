@@ -9,20 +9,19 @@ public class Mage extends Hero {
         super.setMana(130);
     }
 
-    public int attack() {
-        return BASE_ATTACK;
-    }
-
     //special attacks more or less mao ni ilang special moves
-    public int specAtt(int choice){
-        if(choice == 1) {
+    public int attack(int choice) {
+        if(choice == 1){
+            return BASE_ATTACK;
+        }
+        else if(choice == 2) {
             //after 1 turn
             //fireball
             //highest amount of damage but greatest mana cost
             super.minusMana(30);
             return BASE_ATTACK + 20;
         }
-        else if(choice == 2) {
+        else if(choice == 3) {
             //curse?? need improvements please
             return BASE_ATTACK;
         }
