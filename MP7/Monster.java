@@ -14,7 +14,10 @@ public class Monster extends RPGCharacter{
         this.attackDamage = attackDamage;
     }
 
-    public int attack() {
+    public int attack(int choice) {
+        if(choice == 1) {
+            return attackDamage;
+        }
         return attackDamage;
     }
 }
