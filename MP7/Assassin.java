@@ -1,13 +1,27 @@
+package LAB7;
 
+/**
+ * Created by niervin on 10/1/2016.
+ */
 public class Assassin extends Hero {
     //need changes and improvements
-    private int BASE_ATTACK = 17;
-    private int ARMOR = 7;
+    private int BASE_ATTACK;
+    private int ARMOR;
 
     public Assassin(String name){
         super(name);
-        super.setHp(120);
+        super.setHp(100);
         super.setMana(115);
+        BASE_ATTACK = 17;
+        ARMOR = 7;
+    }
+
+    public void skillDisp() {
+        System.out.println("Skill set (Assassin):\n" +
+                "1.Attack\n" +
+                "2.Poison Knives\n" +
+                "3.Smoke Bomb\n");  //subject to change
+        System.out.println("Choose a skill: ");
     }
 
     //special attacks more or less mao ni ilang special moves
@@ -38,5 +52,4 @@ public class Assassin extends Hero {
         // set new hp
         return super.takeDamage(damage);
     }
-
 }
