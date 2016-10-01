@@ -1,14 +1,27 @@
+package LAB7;
+
+/**
+ * Created by niervin on 10/1/2016.
+ */
 public class Mage extends Hero {
     //need changes and improvements
-    private int BASE_ATTACK = 8;
-    private int ARMOR = 5;
+    private int BASE_ATTACK;
+    private int ARMOR;
 
     public Mage(String name){
         super(name);
         super.setHp(117);
         super.setMana(130);
+        BASE_ATTACK = 8;
+        ARMOR = 8;
     }
 
+    public void skillDisp() {
+        System.out.println("Skill set (Mage):\n" +
+                "1.Fireball\n" +
+                "2.Curse");
+        System.out.println("Choose a skill:\n");
+    }
     //special attacks more or less mao ni ilang special moves
     public int attack(int choice) {
         if(choice == 1){
