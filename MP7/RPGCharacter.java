@@ -1,9 +1,3 @@
-package LAB7;
-
-/**
- * Created by niervin on 9/30/2016.
- */
-
 public abstract class RPGCharacter {
     //need changes and improvements
 
@@ -16,7 +10,7 @@ public abstract class RPGCharacter {
         }
 
         // implement in subclass
-        public abstract int attack();
+        public abstract int attack(int choice);
 
         // checks to see if character is still alive
         public boolean isAlive() {
@@ -28,6 +22,12 @@ public abstract class RPGCharacter {
             hp -= damage;
             return hp;
         }
+
+        public int minusMana(int special){
+            mana -= special;
+            return mana;
+        }
+
 
         // getters setters
         public String getName() {
