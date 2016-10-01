@@ -1,16 +1,23 @@
+package LAB7;
+
+/**
+ * Created by niervin on 9/30/2016.
+ */
 public class Swordsman extends Hero{
     //need changes and improvements
 
     // because of sword
-    private int BASE_ATTACK = 10;
+    private int BASE_ATTACK;
     // because of armor
-    private int ARMOR = 19;
+    private int ARMOR;
 
     public Swordsman(String name) {
         // a swordsman will have +ARMOR for HP because of ARMOR
         super(name);
         super.setHp(130);
         super.setMana(110);
+        BASE_ATTACK = 10;
+        ARMOR = 15;
     }
 
     //special attacks more or less mao ni ilang special moves
