@@ -1,8 +1,3 @@
-package LAB7;
-
-/**
- * Created by niervin on 9/30/2016.
- */
 public class Swordsman extends Hero{
     //need changes and improvements
 
@@ -54,4 +49,3 @@ public class Swordsman extends Hero{
         return super.takeDamage(damage);
     }
 }
-
