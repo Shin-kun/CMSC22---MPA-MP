@@ -13,16 +13,15 @@ public class Swordsman extends Hero{
         super.setMana(110);
     }
 
-    //kailangan pa ba nig improvement??
-    public int attack() {
-
-        return BASE_ATTACK;
-    }
-
     //special attacks more or less mao ni ilang special moves
     //special attacksss
-    public int specAtt(int choice){
+    //kailangan pa ba nig improvement??
+    public int attack(int choice) {
         if(choice == 1) {
+            return BASE_ATTACK;
+        }
+
+        else if(choice == 2) {
             //how to record number of turns
             //special attack Bloodlust..
             //an offensive buff..
@@ -30,7 +29,7 @@ public class Swordsman extends Hero{
             super.minusMana(15);
             return BASE_ATTACK += 5;
         }
-        else if(choice == 2) {
+        else if(choice == 3) {
             //how to record number of turns
             //Guard Stance
             //a defense buff
