@@ -1,3 +1,9 @@
+package LAB7;
+
+/**
+ * Created by niervin on 9/30/2016.
+ */
+
 public abstract class RPGCharacter {
     //need changes and improvements
 
@@ -46,9 +52,14 @@ public abstract class RPGCharacter {
             this.hp = hp;
         }
 
+        public int getMana() { return mana; }
+
         public void setMana(int mana) { this.mana = mana; }
         @Override
         public String toString() {
+            if(hp < 0){
+                hp = 0;
+            }
             return "LAB7.RPGCharacter{" +
                     "name='" + name + '\'' +
                     ", hp=" + hp +
