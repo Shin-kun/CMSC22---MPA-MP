@@ -10,7 +10,7 @@ public class Druid extends Hero{
 
     public Druid(String name){
         super(name);
-        super.setHp(120);
+        super.setHp(110);
         super.setMana(110);
     }
 
