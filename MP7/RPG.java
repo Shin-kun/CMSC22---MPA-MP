@@ -65,19 +65,43 @@ public class RPG {
         }
 
         int damage = attacker.attack(choice);
-        System.out.println("--> " + attacker.getName() + " ATK " + defender.getName());
+
+        //need improvements regarding kng chance diri..... sa monster ra ni
+        if(damage == 0 && turn) {
+            System.out.println(attacker.getName() + " used a buffing skill.");
+        }
+        else if(damage == 0 && !turn) {
+            System.out.println(attacker.getName() + " is paralyzed." + attacker.getName() + "cannot move.");
+        }
         sleep(2000);
+        if(damage != 0) {
+            System.out.println("--> " + attacker.getName() + " ATK " + defender.getName());
+            if (coinToss()) {
+                if(noHP(defender, attacker, damage)) {
+                    return true;
+                }
+                //what if the console says missed unya nag guard stance ug blood lust si swordsman
+            } else {                                   //what if chance will always be true..
+                if (turn && defender.DPS != 0) {        //meaning naay Damage Per Second for the monster...
+                    if(noHP(defender, attacker, 0)) {
+                        return true;
+                    }
+                }
+                if(attacker.chance) {
+                    attacker.chance = false;                                //kaning coin toss kay need improvements
+                }
+                System.out.println("--> MISSED!");  //what if ang swordsman and paladin kay nag guard sila tapos ni ingon
+            }                                       //missed dayummmmm
+        }
+        return false;
+    }
 
-        if (coinToss()) {
-            int remHp = defender.takeDamage(damage);
-            if (remHp <= 0) {
-
-                System.out.printf("--> %s killed %s!\n", attacker.getName(), defender.getName());
-                return true;
-            }
-        } else {                        //kaning coin toss kay need improvements
-            System.out.println("--> MISSED!");  //what if ang swordsman and paladin kay nag guard sila tapos ni ingon
-        }                               //missed dayummmmm
+    private boolean noHP(RPGCharacter defender,RPGCharacter attacker,int damage) {
+        int remHP = defender.takeDamage(damage);
+        if (remHP <= 0) {
+            System.out.printf("--> %s killed %s!\n", attacker.getName(), defender.getName());
+            return true;
+        }
         return false;
     }
 
@@ -90,29 +114,28 @@ public class RPG {
         Scanner sc=new Scanner(System.in);
 
         for(i=0;i<7;System.out.printf("\n"),i++);
-        System.out.printf("Hello Adventurer! What is your name?");
-        for(i=0;i<10;System.out.printf("\n"),i++);
+        System.out.printf("Hello Adventurer! What is your name? :");
         String name = sc.next();
-        System.out.printf(" Please pick your class:\n\t1.Swordsman\n\t2.Mage\n\t3.Assassin\n\t\n");
+        System.out.printf("Please pick your class:\n\t1.Swordsman\n\t2.Mage\n\t3.Assassin\n\t4.Druid\nChoose: ");
         int ans;
 
-        for(ans=0 ;ans <= 0 || ans >3    ;ans = sc.nextInt());
+        for(ans=0 ;ans <= 0 || ans >4   ;ans = sc.nextInt());
         RPGCharacter hero = new Swordsman(name);
         if(ans == 1) {
             hero = new Swordsman(name);
         }
-        else if(ans==2){
+        else if(ans == 2){
             hero = new Mage(name);
         }
-        else if(ans==3){
+        else if(ans == 3){
             hero = new Assassin(name);
         }
-        RPGCharacter monster = new Monster(rpg.getRandomMonsterName(), rpg.randInt(1, 150), rpg.randInt(1, 40));
-        //System.out.println(heros.getLevel() + " mao ni si level");
+        else if(ans == 4){
+            hero = new Druid(name);
+        }
+        RPGCharacter monster = new Monster(rpg.getRandomMonsterName(), rpg.randInt(90, 150), rpg.randInt(27, 40));
         System.out.println("====== GAME START =====");
         System.out.printf("%s\n%s\n", hero, monster);
-
-        //System.out.println(hero.);
 
         // fight! for version 1, hero will always attack first.
         int count = 0;
