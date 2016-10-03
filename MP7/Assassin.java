@@ -5,43 +5,72 @@ package LAB7;
  */
 public class Assassin extends Hero {
     //need changes and improvements
-    private int BASE_ATTACK;
-    private int ARMOR;
+    public static final int BASE_ATTACK = 13;
+    public static final int ARMOR = 7;
 
     public Assassin(String name){
         super(name);
         super.setHp(100);
         super.setMana(115);
-        BASE_ATTACK = 17;
-        ARMOR = 7;
     }
 
     public void skillDisp() {
         System.out.println("Skill set (Assassin):\n" +
                 "1.Attack\n" +
-                "2.Poison Knives\n" +
-                "3.Smoke Bomb\n");  //subject to change
-        System.out.println("Choose a skill: ");
+                "2.Deadly Poison\n" +
+                "3.Slice and Dice\nChoose a skill:");  //subject to change
+    }
+
+    private void plusMana() {
+        if(getMana() + 4 < 125) {   //plus mana
+            super.plusMana(4);
+        }
+        else {
+            super.setMana(125);
+        }
+    }
+
+    private void buffturns() {
+        if(buffcount1 != 0) {
+            buffcount2++;       //buffcount turns
+        }
+        if(buffcount1 == 5) {
+            buffcount1 = 0;
+            DPS = 0;
+        }
     }
 
     //special attacks more or less mao ni ilang special moves
     public int attack(int choice){
+        plusMana();
+        buffturns();
+
         if(choice == 1) {
             return BASE_ATTACK;
         }
-        if(choice == 2) {
+        else if(choice == 2) {
+            //highest DPS count
             //poison knives
             //similar to archer's poison arrows
             //dps
-            super.minusMana(20);
-            return BASE_ATTACK + 5;
+            // 5 turns
+            if(getMana() - 25 < 0 ) {
+                System.out.println("Mana is too low. Proceed to attack.");
+                return BASE_ATTACK;
+            }
+            buffcount1 = 1;
+            DPS = 5;
+            super.minusMana(25);
+            return BASE_ATTACK + 7;
         }
         else if(choice == 3) {
-            //di ko kahibaw unsaon pag butang ani
-            //accuracy.. smoke bomb
-            //100% accuracy and 40% accuracy for the enemy
+            //highest physical damage among hero types
+            if(getMana() - 25 < 0 ) {
+                System.out.println("Mana is too low. Proceed to attack.");
+                return BASE_ATTACK;
+            }
             super.minusMana(25);
-            return BASE_ATTACK;
+            return BASE_ATTACK + 9;
         }
         return BASE_ATTACK;
     }
