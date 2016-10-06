@@ -1,57 +1,107 @@
-package LAB7;
-
-/**
- * Created by niervin on 10/1/2016.
+/* latest edit ~6:32 PM 10/6/16
+ * Source code from Prof Nico Enego
+ * Created by Loewe Alivio, Michael Pacana and Jace Roldan
+ *  edits... nerf timee
+ *  mana is now 60
+ *  mana cost of paralysing arrows is now 20
+ *  Base attack of archer is now 15
+ *  mikeee i change ang stars ni archer.. please check
+ *
  */
+
 public class Archer extends Hero {
     //same stats as assassin
     //higher accuracy than assassin but weaker armor
     //need changes and improvements
-    private int BASE_ATTACK;
-    private int ARMOR;
+    public static final int BASE_ATTACK = 15;
+    public static final int BASE_ARMOR = 5;
 
     public Archer(String name){
         super(name);
         super.setHp(120);
-        super.setMana(115);
-        BASE_ATTACK = 19;
-        ARMOR = 4;
+        super.setMana(60);
+
+        stats.armor= BASE_ARMOR;
+        stats.attack= BASE_ATTACK;
     }
 
     public void skillDisp() {
-        System.out.println("Skill set (Hunter):\n" +
+        System.out.println("Skill set (Archer):\n" +
                 "1.Attack\n" +
-                "2.Poison Arrows\n" +
-                "3.Paralysis A\n");
+                "2.Cobra Shot\n" +
+                "3.Paralysing Barrage\n");
         System.out.println("Choose a skill: ");
     }
 
-
-    public int attack(int choice){
-        if(choice == 1){
-            return BASE_ATTACK;
+    private void plusMana() {   //plus mana in every turn
+        if(getMana() + 10 < 60) {
+            super.plusMana(10);
         }
-        else if(choice == 2){
+        else {
+            super.setMana(60);
+        }
+    }
+
+    private void buffturns(RPGCharacter opponent) {
+        if(buffcount1 != 0) {
+            buffcount1++;       //buffcount turns
+            if(buffcount1 == 5) {
+                buffcount1 = 0;
+                opponent.restoreNormal(1);
+            }
+            opponent.damagePerSecond(4); //add these lines to all heroes with poison effect attacks
+        }
+    }
+
+    public void attack(int choice, RPGCharacter opponent){ //add coin toss variable here
+        plusMana();
+        buffturns(opponent);
+
+        opponent.restoreNormal(2); //before every attack, we restore the paralysis status to false
+
+        if(choice == 2){
+            if(getMana() - 20 < 0) {
+                System.out.println("Mana is too low. Proceed to attack.");
+                opponent.takeDamage(stats.attack);
+            }
+
+            buffcount1 = 1;
+            super.minusMana(20);
+
+            opponent.takeEffect(1);
             //in every turn ma damage ang kontra let's say 5 turns
             //poison arrow
             //i add pa nig Damage per Second sa enemy
-            super.minusMana(20);
-            return BASE_ATTACK + 5;
+            opponent.takeDamage(stats.attack + 2);
         }
         else if(choice == 3) {
             //paralysis arrow
             //once in every turn ma paralyse ang enemy... cannot move
-            super.minusMana(25);
-            return BASE_ATTACK + 2;
+            if(getMana() - 20 < 0) {
+                System.out.println("Mana is too low. Proceed to attack.");
+                opponent.takeDamage(stats.attack);
+            }
+
+            super.minusMana(20);
+            opponent.takeEffect(2);
+            opponent.takeDamage(stats.attack + 4);
         }
-        return BASE_ATTACK;
+
+        else { opponent.takeDamage(stats.attack); }
     }
 
+    public void dispStats(){
+        System.out.println("The skill of the Duhr Hunters is admired and feared by the people living in The Great Alfatrar Forest.\n" +
+                " Their poison arrows leave their opponents in a screeching pain, giving them a horrifying death.\n" +
+                " Escaping is impossible for their paralysing arrows will leave their opponents in a standstill.\n" +
+                " Though, it is not exactly their existence that is feared by their opponents" +
+                " but the firing of their arrows which could be liken to a cry of a banshee.\n\n");
 
-    public int takeDamage(int damage) {
-        // reduce damage because of armor!!! oh yeah!
-        damage -= ARMOR;
-        // set new hp
-        return super.takeDamage(damage);
+        System.out.printf("Class: Archer\n\tHP: ******\n\tMana: ****\n\tAttack: ****\n\tArmor: *");//15
+        System.out.println("\nSkills: \n\tCobra Shot: Poison Damage for 5 turns\n\tParalysis Barrage: COpponent is unable to move for 5 turns\n");
+    }
+
+    public String toString(){
+        return super.toString() + "\n\tBase attack = " + stats.attack + " Armor = " + stats.armor;
     }
 }
