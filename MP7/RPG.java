@@ -1,12 +1,14 @@
-package LAB7;
-
 /*
- Created by niervin on 9/30/2016.
-*/
+ * latest edit ~10:00 am 10/6/16
+ * Created by Loewe Alivio, Michael Pacana and Jace Roldan
+ * Source code from Prof Nico Enego
+ */
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.*;
+import java.io.*;
 
 public class RPG {
 
@@ -47,113 +49,174 @@ public class RPG {
         }
     }
 
-    // duel two characters, one as attacker, one as defender
-    // returns true if someone is killed
-    public boolean duel(RPGCharacter attacker, RPGCharacter defender,boolean turn) {
+    public static void clearScreen(){
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException | InterruptedException ex) {}
+    }
+
+    public boolean duel(RPGCharacter attacker, RPGCharacter defender,boolean turn,int PVP) {
         int choice;
+
         if(turn) {
             Hero type = (Hero) attacker;
             type.skillDisp();
-            //hero turn... choosing a skill
             Scanner sc = new Scanner(System.in);
             choice = sc.nextInt();
+            for(;choice<0 || choice>3;choice = sc.nextInt());
         }
         else {
-            //i think it's better nga tagaan og skill ang monster..
-            //too op ra seguro ang heroes kung naa silay skills for now choice is 1
-            choice = 1;
+            if(PVP == 1) {
+                Hero type = (Hero) attacker;
+                type.skillDisp();
+                Scanner sc = new Scanner(System.in);
+                choice = sc.nextInt();
+                for(;choice<0 || choice>3;choice = sc.nextInt());
+            }
+            else {    //monster
+                choice = 1;
+            }
         }
 
-        int damage = attacker.attack(choice);
+        sleep(0);
 
-        //need improvements regarding kng chance diri..... sa monster ra ni
-        if(damage == 0 && turn) {
-            System.out.println(attacker.getName() + " used a buffing skill.");
+        if(attacker.isParalysed()) {
+            System.out.println("~ " + attacker.getName() + " is paralyzed." + attacker.getName() + " cannot move.\n");
+        } else if(!coinToss() && choice == 1){
+            System.out.println(attacker.getName() + "'s attack missed!\n");
+        } else {
+            attacker.attack(choice,defender);
+            if(attacker.isBuffing()){
+                System.out.println("\n~ " + attacker.getName() + " activated a buff. ");
+            }
+            else{
+                System.out.println("\n~ " + attacker.getName() + " attacked " + defender.getName());
+            }
+            sleep(0);
+
+            if (!defender.isAlive()) {
+                System.out.printf("~ %s killed %s!\n", attacker.getName(), defender.getName());
+                return true;
+            }
         }
-        else if(damage == 0 && !turn) {
-            System.out.println(attacker.getName() + " is paralyzed." + attacker.getName() + "cannot move.");
-        }
-        sleep(2000);
-        if(damage != 0) {
-            System.out.println("--> " + attacker.getName() + " ATK " + defender.getName());
-            if (coinToss()) {
-                if(noHP(defender, attacker, damage)) {
-                    return true;
-                }
-                //what if the console says missed unya nag guard stance ug blood lust si swordsman
-            } else {                                   //what if chance will always be true..
-                if (turn && defender.DPS != 0) {        //meaning naay Damage Per Second for the monster...
-                    if(noHP(defender, attacker, 0)) {
-                        return true;
-                    }
-                }
-                if(attacker.chance) {
-                    attacker.chance = false;                                //kaning coin toss kay need improvements
-                }
-                System.out.println("--> MISSED!");  //what if ang swordsman and paladin kay nag guard sila tapos ni ingon
-            }                                       //missed dayummmmm
-        }
+        attacker.negateBuff();
         return false;
     }
 
-    private boolean noHP(RPGCharacter defender,RPGCharacter attacker,int damage) {
-        int remHP = defender.takeDamage(damage);
-        if (remHP <= 0) {
-            System.out.printf("--> %s killed %s!\n", attacker.getName(), defender.getName());
-            return true;
+    public static RPGCharacter newHero(String name) {
+        RPGCharacter hero = new Swordsman(name);
+        for(boolean choice=false; choice==false;){
+            int ans;
+            Scanner sc = new Scanner(System.in);
+            clearScreen();//taaas ra kaayu //
+            System.out.printf("What is your class?\n\t1.Swordsman\n\t2.Mage\n\t3.Assassin\n\t4.Druid\n\t5.Archer\n\t6.Paladin\nChoose: ");
+            for(ans=0 ;ans <= 0 || ans > 6 ;ans = sc.nextInt());
+            clearScreen();
+            if(ans==2){ hero = new Mage(name); }
+            else if(ans==3){ hero = new Assassin(name); }
+            else if(ans==4){ hero = new Druid(name); }
+            else if(ans==5){ hero = new Archer(name); }
+            else if(ans==6){ hero = new Paladin(name); }
+            hero.dispStats();
+            System.out.printf("Are you sure about this class? Choose the number of your choice \n\t1. Yes\n\t2. No\n");
+            int sure;
+            for(sure=0; sure!=1 && sure!=2; sure=sc.nextInt());
+            if (sure==1){
+                choice=true;
+            }
         }
-        return false;
+        return hero;
     }
 
-    // game...
+
     public static void main(String[] args) {
-        int i;
         //to determine if it is the hero turn.. this is so in order for the hero to choose a skill
         boolean heroturn = true;
         RPG rpg = new RPG();
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        for(boolean playagain=true; playagain==true;){
+            clearScreen();
+            System.out.println("\n\n\t\t\tWelcome to the gladiator arena of Sarumsaas!!\n" +
+                    " Warriors all over the world of Exios gathered here to compete and sought the ultimate prize of acquiring the Golden Protator.\n" +
+                    " It is said to give whoever acquires it an eternal life and glory.\n" +
+                    " Warriors are to compete against ancient and brutal monsters that are said to have ravaged the world during the Age of the Gods.\n" +
+                    " Warriors, do not fret in this battle. This may be your last but what awaits you is the glory sought by all. Now, LET THE GAMES BEGIN!\n\n");
 
-        for(i=0;i<7;System.out.printf("\n"),i++);
-        System.out.printf("Hello Adventurer! What is your name? :");
-        String name = sc.next();
-        System.out.printf("Please pick your class:\n\t1.Swordsman\n\t2.Mage\n\t3.Assassin\n\t4.Druid\nChoose: ");
-        int ans;
+            System.out.println("Would you like to play the PVP mode?\n\t1. Yes\n\t2. No");
+            int PVP;
+            for(PVP = 0; PVP != 1 && PVP != 2; PVP = sc.nextInt());
 
-        for(ans=0 ;ans <= 0 || ans >4   ;ans = sc.nextInt());
-        RPGCharacter hero = new Swordsman(name);
-        if(ans == 1) {
-            hero = new Swordsman(name);
-        }
-        else if(ans == 2){
-            hero = new Mage(name);
-        }
-        else if(ans == 3){
-            hero = new Assassin(name);
-        }
-        else if(ans == 4){
-            hero = new Druid(name);
-        }
-        RPGCharacter monster = new Monster(rpg.getRandomMonsterName(), rpg.randInt(90, 150), rpg.randInt(27, 40));
-        System.out.println("====== GAME START =====");
-        System.out.printf("%s\n%s\n", hero, monster);
+            System.out.printf("Hello Adventurer! Welcome to the gladiator arena of Sarumsaas!\nWhat is your name? ");
+            String name = sc.next();
+            RPGCharacter hero = newHero(name);
+            RPGCharacter monster;
 
-        // fight! for version 1, hero will always attack first.
-        int count = 0;
-        while (true) {
-            System.out.println("== round " + ++count);
-            // hero's turn
-            boolean monsterIsDead = rpg.duel(hero, monster,heroturn);
-            heroturn = false;
-            if (monsterIsDead) break;
+            clearScreen();
+            if(PVP == 1) {
+                System.out.printf("Hello Adventurer! Welcome to the gladiator arena of Sarumsaas!\nWhat is your name? ");
+                String name2 = sc.next();
+                monster = newHero(name2);
+            }
+            else {
+                int ans;
+                clearScreen();
+                System.out.printf("Please enter the difficulty level:\n\t1-Noob\n\t2-Chill\n\t3-Insane\n ");
+                for (ans = -1; ans < 0 || ans > 4; ans = sc.nextInt()) ;
+                int hph = 0, hpl = 0, ah = 0, al = 0;
+                if (ans == 1) {
+                    hph = 130;
+                    hpl = 100;
+                    ah = 20;
+                    al = 15;
+                } else if (ans == 2) {
+                    hph = 150;
+                    hpl = 130;
+                    ah = 30;
+                    al = 20;
+                } else if (ans == 3) {
+                    hph = 170;
+                    hpl = 150;
+                    ah = 40;
+                    al = 30;
+                }
+                monster = new Monster(rpg.getRandomMonsterName(), rpg.randInt(hpl, hph), rpg.randInt(al, ah));
+            }
 
-            // monster's turn
-            boolean heroIsDead = rpg.duel(monster, hero,heroturn);
-            heroturn = true;
-            if (heroIsDead) break;
-
+            clearScreen();
+            System.out.println("====== GAME START ======");
             System.out.printf("%s\n%s\n", hero, monster);
+            // fight! for version 1, hero will always attack first.
+            int count = 0;
+            while (true) {
+                System.out.println("\n  == ROUND " + ++count +"==\n");
+                // hero's turn
+                boolean monsterIsDead = rpg.duel(hero, monster,heroturn,PVP);
+                heroturn = false;
+                if (monsterIsDead){System.out.println("\nYou have won. The monsters have lost the battle."); break;}
+                // monster's turn
+                boolean heroIsDead = rpg.duel(monster, hero,heroturn,PVP);
+                heroturn = true;
+                if (heroIsDead) {System.out.println("\nYou have lost. The monsters have won.");break;}
+                System.out.println("\nPress any key to continue...");
+                try
+                {
+                    System.in.read();
+                }
+                catch(Exception e){}
+                clearScreen();
+                System.out.printf("%s\n%s\n", hero, monster);
+            }
+            clearScreen();
+            System.out.printf("%s\n%s\n\n", hero, monster);
+            System.out.print("Do you want to play again?\n\t1.Yes\n\t2.No\n");
+            int pa;
+            for(pa=0;pa!=1 && pa!=2;pa=sc.nextInt());
+            if(pa==2){
+                playagain=false;
+            }
         }
-
-        System.out.printf("%s\n%s\n", hero, monster);
     }
 }
