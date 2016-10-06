@@ -1,8 +1,10 @@
-package LAB7;
+/*
+* latest edit ~9:00 AM 10/6/16 by Jace
+* Source code from Prof Nico Enego
+* Created by Loewe Alivio, Michael Pacana and Jace Roldan
+*
+*/
 
-/**
- * Created by niervin on 9/30/2016.
- */
 public class Monster extends RPGCharacter{
     //need changes and improvements
 
@@ -14,10 +16,21 @@ public class Monster extends RPGCharacter{
         this.attackDamage = attackDamage;
     }
 
-    public int attack(int choice) {
-        if(choice == 1) {
-            return attackDamage;
-        }
-        return attackDamage;
+    public void attack(int choice, RPGCharacter opponent){
+        opponent.takeDamage(attackDamage);
+    }
+
+    public void takeDamage(int damage) {
+        stats.hp -= damage;
+    }
+
+    public void negateBuff() { }
+
+    public void dispStats() { }
+
+    public boolean isBuffing(){ return false; }
+
+    public String toString() {
+        return super.toString() + "\n\tBase Damage = " + attackDamage;
     }
 }
