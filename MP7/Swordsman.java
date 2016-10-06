@@ -1,95 +1,105 @@
-package LAB7;
-
-/**
- * Created by niervin on 9/30/2016.
+/*
+ * latest edit ~6:59 PM 10/6/16
+ * Created by Loewe Alivio, Mike Pacana and Jace Roldan.
+ * Source code from Prof Nico Enego
+ * setting damage of swordsman to 10
+ *  mike please change the stars
+ *
  */
-public class Swordsman extends Hero{
-    //need changes and improvements
-
-    // because of sword
+public class Swordsman extends Hero {
     public static final int BASE_ATTACK = 10;
-    // because of armor
-    private int ARMOR;
+    public static final int BASE_ARMOR = 15; //changed ARMOR to BASE_ARMOR
 
     public Swordsman(String name) {
-        // a swordsman will have +ARMOR for HP because of ARMOR
         super(name);
-        super.setHp(130);
-        super.setMana(110);
-        ARMOR = 15;
+        super.setHp(120);
+        super.setMana(100);
+
+        stats.attack = BASE_ATTACK;    //call overloaded constructor for stats.java
+        stats.armor = BASE_ARMOR;
     }
 
     public void skillDisp() {
-        System.out.println("Skill Set (Swordsman):\n " +
+        System.out.println("Skill Set (Swordsman):\n" +
                 "1. Attack\n" +
                 "2. Bloodlust\n" +
                 "3. Guard Stance");
-        System.out.println("Choose a skill: ");
+        System.out.print("Choose a skill: ");
     }
 
-    //special attacks more or less mao ni ilang special moves
-    //special attacksss
-    //kailangan pa ba nig improvement??
-    public int attack(int choice) {
+    private void plusMana() {   //regenerate mana before every turn
+        if(getMana() + 20 < 100) {
+            super.plusMana(20);
+        } else {
+            super.setMana(100);
+        }
+    }
+
+    private void buffTurns() {
         if(buffcount1 != 0){
-            buffcount1++;       //buffcount turns
+            buffcount1++;       //buffcount1 counts the number of turns for Bloodlust
+            if(buffcount1 == 6) {
+                buffcount1 = 0;
+                stats.attack = BASE_ATTACK; //attack reset to BASE_ATTACK
+            }
         }
         if(buffcount2 != 0){
-            buffcount2++;       //buffcount turns
-        }
-        if(buffcount2 == 4){    //guard stance is erased;
-            ARMOR -= 8;
-        }
-        if(choice == 1) {
-            if(buffcount1 < 4 && buffcount1 > 0) {
-                return BASE_ATTACK + 5;
-            }
-            else {
-                return BASE_ATTACK;
+            buffcount2++;       //buffcount2 counts the number of turns for Guard Stance
+            if(buffcount2 == 6){    //Guard Stance is erased
+                buffcount2 = 0;
+                stats.armor = BASE_ARMOR; //armor reset to BASE_ARMOR
             }
         }
-        else if(choice == 2) {
-            //how to record number of turns
-            //special attack Bloodlust..
-            //an offensive buff..
-            //for 4 turns + 5 attack
-            buffcount1 = 1;
-            if(getMana() < 0) {
+    }
+
+    public void attack(int choice, RPGCharacter opponent) { //took out the return type
+        plusMana();
+        buffTurns();
+
+        if(choice == 2) {
+            //proceed to attack if insufficient mana for this ability
+            if(getMana() - 15 < 0) {
                 System.out.println("Mana is too low. Proceed to attack");
-                return attack(1);
+                opponent.takeDamage(stats.attack);
             }
-            else {
+            else if(buffcount1 == 0){
                 super.minusMana(15);
-                return BASE_ATTACK + 5;
+                stats.attack += 5;
             }
+            buffcount1 = 1;  //even when player calls bloodlust again and again, only the buffcount1 gets reset.
+            isBuffed = true;
         }
+
         else if(choice == 3) {
-            //how to record number of turns
-            //Guard Stance
-            //a defense buff
+            //special move Guard Stance..
+            //a defense buff..
             //for 5 turns + 8 armor
-            buffcount2 = 1;
-            if(getMana() < 0) {
+            if(getMana() - 20 < 0) {
                 System.out.println("Mana is too low. Proceed to attack");
-                return BASE_ATTACK;
+                opponent.takeDamage(stats.attack);
             }
-            else {
-                super.minusMana(20);
-                ARMOR += 8;
-                return 0;
+
+            else if(buffcount2 == 0){
+                super.minusMana(20); //same explanation as bloodlust, choice 2
+                stats.armor += 6;
             }
+
+            buffcount2 = 1;            //same. see bloodlust, choice 2
+            isBuffed = true;
         }
-        return BASE_ATTACK;
-    }
-    public int takeDamage(int damage) {
-        // reduce damage because of armor!!! oh yeah!
-        damage -= ARMOR;
-        // set new hp
-        if(damage < 0){
-            damage = 0;
-        }
-        return super.takeDamage(damage);
+
+        else { opponent.takeDamage(stats.attack); }
     }
 
+    public void dispStats(){
+        System.out.println("Trained in the great halls of Darumas, the Swordsmen of Kalyos mastered the way of the sword.\n" +
+                " They are often found in battlefields to showcase their skills.\n" +
+                " Their special skills allow them to enhance their capabilities for a few fold which makes them a terror to soldiers who are encountered by these beasts.\n\n");
+
+        System.out.printf("Class: Swordsman\n\tHP: ******\n\tMana: **\n\tAttack: **\n\tArmor: ***");//17
+        System.out.println("\nSkills: \n\tBloodlust: + 5 Damage for 5 turns\n\tGuard Stance: + 8 Armor for 5 turns\n");
+    }
+    public String toString(){
+        return super.toString() + "\n\tBase attack = " + stats.attack + " Armor = " + stats.armor;
+    }
 }
-
