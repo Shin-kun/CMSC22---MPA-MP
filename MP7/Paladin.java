@@ -20,6 +20,7 @@ public class Paladin extends Hero{
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill set (Paladin):\n" +
                 "1. Attack\n"+
                 "2. Divine Blessing\n" +
@@ -47,7 +48,6 @@ public class Paladin extends Hero{
     }
 
     public void attack(int choice,RPGCharacter opponent) {//attacks & special attacks
-        plusMana();
         buffturns();
 
         opponent.restoreNormal(2);
@@ -83,6 +83,7 @@ public class Paladin extends Hero{
             buffcount2 = 1;
             isBuffed = true;
         }
+
         else { opponent.takeDamage(stats.attack); }
     }
 
