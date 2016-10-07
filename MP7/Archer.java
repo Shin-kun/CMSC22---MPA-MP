@@ -1,11 +1,6 @@
 /* latest edit ~6:32 PM 10/6/16
  * Source code from Prof Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
- *  edits... nerf timee
- *  mana is now 60
- *  mana cost of paralysing arrows is now 20
- *  Base attack of archer is now 15
- *  mikeee i change ang stars ni archer.. please check
  *
  */
 
@@ -26,12 +21,12 @@ public class Archer extends Hero {
     }
 
     public void skillDisp() {
-        plusMana();
         System.out.println("Skill set (Archer):\n" +
                 "1.Attack\n" +
                 "2.Cobra Shot\n" +
                 "3.Paralysing Barrage\n");
         System.out.println("Choose a skill: ");
+        plusMana();
     }
 
     private void plusMana() {   //plus mana in every turn
@@ -55,7 +50,6 @@ public class Archer extends Hero {
     }
 
     public void attack(int choice, RPGCharacter opponent){ //add coin toss variable here
-
         buffturns(opponent);
 
         opponent.restoreNormal(2); //before every attack, we restore the paralysis status to false
@@ -64,6 +58,7 @@ public class Archer extends Hero {
             if(getMana() - 20 < 0) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             buffcount1 = 1;
@@ -99,7 +94,7 @@ public class Archer extends Hero {
                 " but the firing of their arrows which could be liken to a cry of a banshee.\n\n");
 
         System.out.printf("Class: Archer\n\tHP: ******\n\tMana: ***\n\tAttack: ***\n\tArmor: *");//15
-        System.out.println("\nSkills: \n\tCobra Shot: Poison Damage for 5 turns\n\tParalysis Barrage: COpponent is unable to move for 5 turns\n");
+        System.out.println("\nSkills: \n\tCobra Shot: Poison Damage for 5 turns\n\tParalysis Barrage: Opponent is unable to move for 5 turns\n");
     }
 
     public String toString(){
