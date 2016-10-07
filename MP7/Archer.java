@@ -98,7 +98,7 @@ public class Archer extends Hero {
                 " Though, it is not exactly their existence that is feared by their opponents" +
                 " but the firing of their arrows which could be liken to a cry of a banshee.\n\n");
 
-        System.out.printf("Class: Archer\n\tHP: ******\n\tMana: ****\n\tAttack: ****\n\tArmor: *");//15
+        System.out.printf("Class: Archer\n\tHP: ******\n\tMana: ***\n\tAttack: ***\n\tArmor: *");//15
         System.out.println("\nSkills: \n\tCobra Shot: Poison Damage for 5 turns\n\tParalysis Barrage: COpponent is unable to move for 5 turns\n");
     }
 
