@@ -6,6 +6,7 @@
  *  mike please change the stars
  *
  */
+
 public class Swordsman extends Hero {
     public static final int BASE_ATTACK = 10;
     public static final int BASE_ARMOR = 15; //changed ARMOR to BASE_ARMOR
@@ -20,6 +21,7 @@ public class Swordsman extends Hero {
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill Set (Swordsman):\n" +
                 "1. Attack\n" +
                 "2. Bloodlust\n" +
@@ -28,6 +30,7 @@ public class Swordsman extends Hero {
     }
 
     private void plusMana() {   //regenerate mana before every turn
+
         if(getMana() + 20 < 100) {
             super.plusMana(20);
         } else {
@@ -53,7 +56,6 @@ public class Swordsman extends Hero {
     }
 
     public void attack(int choice, RPGCharacter opponent) { //took out the return type
-        plusMana();
         buffTurns();
 
         if(choice == 2) {
