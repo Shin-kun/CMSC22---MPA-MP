@@ -1,5 +1,3 @@
-package LAB7;
-
 //auxiliary class made for composition
 public class Stats {
     public String name;
