@@ -1,8 +1,6 @@
 /*latest edit ~6:43 PM 10/6/16
  * Source code fron From Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
- *  Shocking Touch now costs 35 per use
-  * please check
  */
 public class Druid extends Hero {
     public static final int BASE_ATTACK = 10;
@@ -18,12 +16,12 @@ public class Druid extends Hero {
     }
 
     public void skillDisp() {
-        plusMana();
         System.out.println("Skill set (Druid):\n" +
                 "1.Attack\n" +
                 "2.Werewolf Aspect\n" +
                 "3.Shocking Touch");
         System.out.println("Choose a skill: ");
+        plusMana();
     }
 
     private void plusMana() {   //plus mana in every turn
