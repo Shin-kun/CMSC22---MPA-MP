@@ -18,6 +18,7 @@ public class Druid extends Hero {
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill set (Druid):\n" +
                 "1.Attack\n" +
                 "2.Werewolf Aspect\n" +
@@ -46,7 +47,6 @@ public class Druid extends Hero {
     }
 
     public void attack(int choice, RPGCharacter opponent) {
-        plusMana();
         buffturns();
 
         opponent.restoreNormal(2);
