@@ -1,9 +1,6 @@
-/* latest edit ~6:46 PM 10/6/16
+/* latest edit ~6:03 PM 10/7/16
  * Source code from Prof Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
- *  mage fireball damage is now + 12
- *  setting HP to 100
- *  mike ang stars pleaseeee
  */
 public class Mage extends Hero {
     public static final int BASE_ATTACK = 5;
@@ -19,12 +16,12 @@ public class Mage extends Hero {
     }
 
     public void skillDisp() {
-        plusMana();
         System.out.println("Skill set (Mage):\n" +
                 "1.Attack\n" +
                 "2.Fireball\n" +
                 "3.Curse of Madness");
         System.out.print("Choose a skill: ");
+        plusMana();
     }
 
     private void plusMana() {   //plus mana in every turn
@@ -59,6 +56,7 @@ public class Mage extends Hero {
             if(getMana() - 35 < 0 ) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             super.minusMana(35);
@@ -68,6 +66,7 @@ public class Mage extends Hero {
             if(getMana() - 20 < 0) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             super.minusMana(20);
@@ -85,7 +84,7 @@ public class Mage extends Hero {
                 " Their mastery over magic is constantly sought by the countries of Exios for it is a strong asset in the battlefield.\n" +
                 " But, these mages are often secluded in the outside world in order for them to continue pursue the secrets of the Arcane.\n\n");
 
-        System.out.printf("Class: Mage\n\tHP: ******\n\tMana: *******\n\tAttack: *\n\tArmor: *");//15
+        System.out.printf("Class: Mage\n\tHP: *****\n\tMana: *******\n\tAttack: *\n\tArmor: *");//15
         System.out.println("\nSkills: \n\tFireball: Flame Damage Attack \n\tCurse of Madness: Curse Damage for 4 turns\n");
     }
     public String toString() {

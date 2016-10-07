@@ -1,4 +1,4 @@
-/*latest edit ~6:43 PM 10/6/16
+/*latest edit ~6:03 PM 10/7/16
  * Source code fron From Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
  */
@@ -18,9 +18,9 @@ public class Druid extends Hero {
     public void skillDisp() {
         System.out.println("Skill set (Druid):\n" +
                 "1.Attack\n" +
-                "2.Werewolf Aspect\n" +
+                "2.Werwolf Aspect\n" +
                 "3.Shocking Touch");
-        System.out.println("Choose a skill: ");
+        System.out.print("Choose a skill: ");
         plusMana();
     }
 
@@ -55,14 +55,15 @@ public class Druid extends Hero {
             if(getMana() - 15 < 0) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             if(buffcount1 == 0) {
-                super.minusMana(15);
                 stats.armor += 6;
                 stats.attack += 10;
             }
 
+            super.minusMana(15);
             buffcount1 = 1;
             isBuffed = true;
         }
@@ -72,6 +73,7 @@ public class Druid extends Hero {
             if(getMana() - 20 < 0) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             super.minusMana(35);

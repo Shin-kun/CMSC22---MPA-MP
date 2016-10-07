@@ -1,6 +1,7 @@
-/* latest edit ~12:41 PM 10/7/16
+/* latest edit ~6:03 PM 10/7/16
  * Source code from Prof Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
+ *
  */
 
 public class Assassin extends Hero {
@@ -17,11 +18,11 @@ public class Assassin extends Hero {
     }
 
     public void skillDisp() {
-        plusMana();
         System.out.println("Skill set (Assassin):\n" +
                 "1.Attack\n" +
                 "2.Deadly Poison\n" +
                 "3.Slice and Dice\nChoose a skill:");  //subject to change
+        plusMana();
     }
 
     private void plusMana() {
@@ -51,20 +52,14 @@ public class Assassin extends Hero {
         opponent.restoreNormal(2); //restores paralysisStatus to false
 
         if(choice == 2) {
-            //highest DPS count
-            //poison knives
-            //similar to archer's poison arrows
-            //dps
-            // 5 turns
             if(getMana() - 25 < 0 ) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
-
             buffcount1 = 1;
             opponent.takeEffect(1);
             super.minusMana(25);
-
             opponent.takeDamage(stats.attack + 7);
         }
 
@@ -74,9 +69,10 @@ public class Assassin extends Hero {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
             }
-
-            super.minusMana(35);
-            opponent.takeDamage(stats.attack + 9);
+            else{
+                super.minusMana(35);
+                opponent.takeDamage(stats.attack + 9);
+            }
         }
         else { opponent.takeDamage(stats.attack); }
     }
@@ -89,7 +85,7 @@ public class Assassin extends Hero {
                 " Usually, the corpses of their targets are testified to be in a zombified state.\n\n");
 
         System.out.printf("Class: Assassin\n\tHP: *****\n\tMana: ****\n\tAttack: ***\n\tArmor: **");//15
-        System.out.println("\nSkills: \n\tDeadly Poison DPS damage + 5 for 4 turns\n\tSlice and Dice: Physical Damage + 7\n");
+        System.out.println("\nSkills: \n\tDeadly Poison DPS damage  for 4 turns\n\tSlice and Dice: Physical Damage\n");
     }
     public String toString() {
         return super.toString() + "\n\tBase attack = " + stats.attack + " Armor = " + stats.armor;

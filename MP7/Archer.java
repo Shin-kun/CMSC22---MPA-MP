@@ -1,9 +1,6 @@
-/* latest edit ~6:32 PM 10/6/16
+/* latest edit ~6:03 PM 10/7/16
  * Source code from Prof Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
- *
- *
- *
  *
  */
 

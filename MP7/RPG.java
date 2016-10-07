@@ -1,8 +1,7 @@
 /*
- * latest edit ~10:00 am 10/6/16
+ * latest edit ~06:02 am 10/7/16
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
  * Source code from Prof Nico Enego
- * hello naa ko diri hi
  */
 
 import java.util.Arrays;
@@ -85,21 +84,21 @@ public class RPG {
         sleep(0);
 
         if(attacker.isParalysed()) {
-            System.out.println("~ " + attacker.getName() + " is paralyzed." + attacker.getName() + " cannot move.\n");
+            System.out.println("\n~ " + attacker.getName() + " is paralyzed." + attacker.getName() + " cannot move.\n");
         } else if(!coinToss() && choice == 1){
             System.out.println(attacker.getName() + "'s attack missed!\n");
         } else {
             attacker.attack(choice,defender);
             if(attacker.isBuffing()){
-                System.out.println("\n~ " + attacker.getName() + " activated a buff. ");
+                System.out.println("\n~ " + attacker.getName() + " activated a buff. "+"\n");
             }
             else{
-                System.out.println("\n~ " + attacker.getName() + " attacked " + defender.getName());
+                System.out.println("\n~ " + attacker.getName() + " attacked " + defender.getName() + "\n");
             }
             sleep(0);
 
             if (!defender.isAlive()) {
-                System.out.printf("~ %s killed %s!\n", attacker.getName(), defender.getName());
+                System.out.printf("\n~ %s killed %s!\n", attacker.getName(), defender.getName());
                 return true;
             }
         }
@@ -145,7 +144,6 @@ public class RPG {
                     " It is said to give whoever acquires it an eternal life and glory.\n" +
                     " Warriors are to compete against ancient and brutal monsters that are said to have ravaged the world during the Age of the Gods.\n" +
                     " Warriors, do not fret in this battle. This may be your last but what awaits you is the glory sought by all. Now, LET THE GAMES BEGIN!\n\n");
-
             System.out.println("Would you like to play the PVP mode?\n\t1. Yes\n\t2. No");
             int PVP;
             for(PVP = 0; PVP != 1 && PVP != 2; PVP = sc.nextInt());

@@ -1,9 +1,6 @@
-/* latest edit ~6:50 PM 10/6/16
+/* latest edit ~6:03 PM 10/7/16
  * Source code from Prof Nico Enego
  * Created by Loewe Alivio, Michael Pacana and Jace Roldan
- *  setting damage to 15..
- *  Righteous Shield now costs 30 mana per use
- *  plus mana is now 5
  */
 
 public class Paladin extends Hero{
@@ -20,12 +17,12 @@ public class Paladin extends Hero{
     }
 
     public void skillDisp() {
-        plusMana();
         System.out.println("Skill set (Paladin):\n" +
                 "1. Attack\n"+
                 "2. Divine Blessing\n" +
                 "3. Righteous Shield");
         System.out.print("Choose a skill: ");
+        plusMana();
     }
 
     private void plusMana() {   //regen mana every turn
@@ -48,6 +45,7 @@ public class Paladin extends Hero{
     }
 
     public void attack(int choice,RPGCharacter opponent) {//attacks & special attacks
+
         buffturns();
 
         opponent.restoreNormal(2);
@@ -73,17 +71,16 @@ public class Paladin extends Hero{
             if(getMana() - 20 < 0) {
                 System.out.println("Mana is too low. Proceed to attack.");
                 opponent.takeDamage(stats.attack);
+                return;
             }
 
             else if(buffcount2 == 0) {
-                super.minusMana(30);
                 stats.armor += 10;
             }
-
+            super.minusMana(30);
             buffcount2 = 1;
             isBuffed = true;
         }
-
         else { opponent.takeDamage(stats.attack); }
     }
 
@@ -92,7 +89,7 @@ public class Paladin extends Hero{
                 " Oftentimes, they are sent by the Kalyos Empire to eradicate monsters that threaten to destroy the country as one of its elite forces.\n" +
                 " Their charismatic fervor in the battlefield gave their allies a boost to their morale, and enemies and monsters alike shudder at their inevitable death.\n\n");
 
-        System.out.printf("Class: Paladin\n\tHP: *******\n\tMana: ***\n\tAttack: **\n\tArmor: ****");//17
+        System.out.printf("Class: Paladin\n\tHP: *******\n\tMana: ***\n\tAttack: ***\n\tArmor: ***");//17
         System.out.println("\nSkills: \n\tDivine Blessing: Heal\n\tRighteous shield: Buffs Armor for 5 turns\n");
     }
 
