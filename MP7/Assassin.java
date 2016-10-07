@@ -92,7 +92,7 @@ public class Assassin extends Hero {
                 " More often than not, they are successful in their operations.\n" +
                 " Usually, the corpses of their targets are testified to be in a zombified state.\n\n");
 
-        System.out.printf("Class: Assassin\n\tHP: ******\n\tMana: *****\n\tAttack: ***\n\tArmor: **");//15
+        System.out.printf("Class: Assassin\n\tHP: *****\n\tMana: ****\n\tAttack: ***\n\tArmor: **");//15
         System.out.println("\nSkills: \n\tDeadly Poison DPS damage + 5 for 4 turns\n\tSlice and Dice: Physical Damage + 7\n");
     }
     public String toString() {
