@@ -26,6 +26,7 @@ public class Archer extends Hero {
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill set (Archer):\n" +
                 "1.Attack\n" +
                 "2.Cobra Shot\n" +
@@ -54,7 +55,7 @@ public class Archer extends Hero {
     }
 
     public void attack(int choice, RPGCharacter opponent){ //add coin toss variable here
-        plusMana();
+
         buffturns(opponent);
 
         opponent.restoreNormal(2); //before every attack, we restore the paralysis status to false
