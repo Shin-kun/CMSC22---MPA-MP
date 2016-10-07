@@ -19,6 +19,7 @@ public class Mage extends Hero {
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill set (Mage):\n" +
                 "1.Attack\n" +
                 "2.Fireball\n" +
@@ -50,7 +51,6 @@ public class Mage extends Hero {
 
     //special attacks more or less mao ni ilang special moves
     public void attack(int choice,RPGCharacter opponent) {
-        plusMana();
         buffturns(opponent);
 
         opponent.restoreNormal(2);
