@@ -21,6 +21,7 @@ public class Assassin extends Hero {
     }
 
     public void skillDisp() {
+        plusMana();
         System.out.println("Skill set (Assassin):\n" +
                 "1.Attack\n" +
                 "2.Deadly Poison\n" +
@@ -49,7 +50,6 @@ public class Assassin extends Hero {
 
     //special attacks more or less mao ni ilang special moves
     public void attack(int choice, RPGCharacter opponent){
-        plusMana();
         buffturns(opponent);
 
         opponent.restoreNormal(2); //restores paralysisStatus to false
