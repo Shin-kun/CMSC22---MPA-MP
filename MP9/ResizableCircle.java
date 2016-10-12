@@ -9,8 +9,6 @@ public class ResizableCircle extends Circle implements Resizable,Drawable{
         System.out.println(newPercent);
         radius += newPercent * radius;
         Render();
-        sleep(1000);
-        clearScreen();
     }
 
     public static void clearScreen(){
@@ -27,6 +25,12 @@ public class ResizableCircle extends Circle implements Resizable,Drawable{
         ctr = 0;
         x = 20;
         y = 20;
+        clearScreen();
+        sleep(1000);
+
+        if(x < radius || y < radius){
+            throw new IllegalArgumentException("Radius must fit within coordinates");
+        }
         for(i = 0; i <= y+radius ; i++){
             for(j = 0; j <= x+radius;j++){
 

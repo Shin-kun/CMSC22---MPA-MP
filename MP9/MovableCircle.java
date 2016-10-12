@@ -1,9 +1,13 @@
 import java.io.*;
-public class MovableCircle implements Movable {
+
+public class MovableCircle implements Movable, Drawable {
     private int radius;
     private MovablePoint center;
 
     public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) {
+        if(x < radius || y < radius){
+            throw new IllegalArgumentException("Radius must fit within coordinates");
+        }
         center = new MovablePoint(x, y, xSpeed, ySpeed);
         this.radius = radius;
         Render();
@@ -11,7 +15,7 @@ public class MovableCircle implements Movable {
 
     public String toString() {
         Render();
-        return "Center at x = " + center.x + " y = " + center.y + " with radius of " + radius;
+        return "I am a movable potato.\nCenter at x = " + center.x + " y = " + center.y + " with radius of " + radius;
     }
 
     public void moveUp() {
@@ -34,7 +38,7 @@ public class MovableCircle implements Movable {
         Render();
     }
 
-    private static void clearScreen(){
+    public static void clearScreen(){
         try {
             if (System.getProperty("os.name").contains("Windows"))
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -43,9 +47,18 @@ public class MovableCircle implements Movable {
         } catch (IOException | InterruptedException ex) {}
     }
 
+    public static void sleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public void Render(){
         int i, j, ctr = 0;
         clearScreen();
+        sleep(1000);
         for(i = 0; i <= center.y+radius ; i++){
             for(j = 0; j <= center.x+radius;j++){
 

@@ -1,8 +1,7 @@
 import static java.lang.Math.PI;
-
+import java.util.*;
 import java.io.*;
-
-public class Circle implements GeometricObject,Drawable{
+public class Circle implements GeometricObject,Drawable {
     protected double radius;
 
     public Circle(double radius) {
@@ -21,8 +20,6 @@ public class Circle implements GeometricObject,Drawable{
         String ans;
         ans = String.format("This circle has a radius of %.2f, an area of %.2f and a perimeter of %.2f", radius, getArea(), getPerimeter());
         Render();
-        sleep(1000);
-        clearScreen();
         return ans;
     }
 
@@ -49,6 +46,11 @@ public class Circle implements GeometricObject,Drawable{
         ctr = 0;
         x = 20;
         y = 20;
+        clearScreen();
+        sleep(1000);
+        if(x < radius || y < radius){
+            throw new IllegalArgumentException("Radius must fit within coordinates");
+        }
         for(i = 0; i <= y+radius ; i++){
             for(j = 0; j <= x+radius;j++){
 
