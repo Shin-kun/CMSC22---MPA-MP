@@ -1,4 +1,4 @@
-public interface Movable extends Drawable{
+public interface Movable{
 	public void moveUp();
 	public void moveDown();
 	public void moveRight();

@@ -12,8 +12,6 @@ public class MovablePoint implements Movable{
 		return "Position at x = " + x + " and y = " + y;
 	}
 
-	public void Render() { }
-
 	public void moveUp(){
 		y -= ySpeed;
 	}

@@ -11,6 +11,13 @@ public class MovableRectangle implements Movable,Drawable{
         } catch (IOException | InterruptedException ex) {}
     }
 
+    public void sleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     private MovablePoint topLeft;
     private MovablePoint bottomRight;
@@ -23,6 +30,7 @@ public class MovableRectangle implements Movable,Drawable{
         bottomRight = new MovablePoint(x2,y2,xSpeed,ySpeed);
         Render();
         System.out.println("\n");
+        sleep(1000);
     }
 
     public String toString(){
@@ -31,6 +39,7 @@ public class MovableRectangle implements Movable,Drawable{
     }
 
     public void moveUp(){
+        sleep(1000);
         clearScreen();
 
         topLeft.y -= topLeft.ySpeed;
@@ -40,6 +49,7 @@ public class MovableRectangle implements Movable,Drawable{
     }
 
     public void moveDown(){
+        sleep(1000);
         clearScreen();
 
         topLeft.y += topLeft.ySpeed;
@@ -49,6 +59,7 @@ public class MovableRectangle implements Movable,Drawable{
     }
 
     public void moveLeft(){
+        sleep(1000);
         clearScreen();
 
         topLeft.x -= topLeft.xSpeed;
@@ -58,6 +69,7 @@ public class MovableRectangle implements Movable,Drawable{
     }
 
     public void moveRight(){
+        sleep(1000);
         clearScreen();
 
         topLeft.x += topLeft.xSpeed;
