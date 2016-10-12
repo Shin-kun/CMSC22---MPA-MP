@@ -11,6 +11,11 @@ public class MovableCircle implements Movable{
 		return "Position at x = " + center.x + " and y = " + center.y;
 	}
 
+	public void Render() {
+
+
+	}
+
 	public void moveUp(){
 		center.y -= center.ySpeed;
 	}
