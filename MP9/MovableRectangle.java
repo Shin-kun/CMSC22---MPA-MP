@@ -1,39 +1,71 @@
+import java.io.IOException;
+
 public class MovableRectangle implements Movable,Drawable{
-	private MovablePoint topLeft;
-	private MovablePoint bottomRight;
 
-	public MovableRectangle(int x1, int y1, int x2, int y2, int xSpeed, int ySpeed){
-		if(x2 < x1 || y2 < y1){
+    private static void clearScreen(){
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException | InterruptedException ex) {}
+    }
+
+
+    private MovablePoint topLeft;
+    private MovablePoint bottomRight;
+
+    public MovableRectangle(int x1, int y1, int x2, int y2, int xSpeed, int ySpeed){
+        if(x2 < x1 || y2 < y1){
             throw new IllegalArgumentException("Bottom right values are lesser than Top left values");
-		}
-
-		topLeft = new MovablePoint(x1,y1,xSpeed,ySpeed);
+        }
+        topLeft = new MovablePoint(x1,y1,xSpeed,ySpeed);
         bottomRight = new MovablePoint(x2,y2,xSpeed,ySpeed);
-	}
+        Render();
+        System.out.println("\n");
+    }
 
-	public String toString(){
-		return "Top left at x = " + topLeft.x + " y = " + topLeft.y + " and Bottom Right at x = " + bottomRight.x + " y = " + bottomRight.y;
-	}
+    public String toString(){
+        Render();
+        return "Top left at x = " + topLeft.x + " y = " + topLeft.y + " and Bottom Right at x = " + bottomRight.x + " y = " + bottomRight.y;
+    }
 
-	public void moveUp(){
-		topLeft.y -= topLeft.ySpeed;
-		bottomRight.y -= bottomRight.ySpeed;
-	}
+    public void moveUp(){
+        clearScreen();
 
-	public void moveDown(){
-		topLeft.y += topLeft.ySpeed;
-		bottomRight.y += bottomRight.ySpeed;
-	}
+        topLeft.y -= topLeft.ySpeed;
+        bottomRight.y -= bottomRight.ySpeed;
+        Render();
+        System.out.println("\n");
+    }
+
+    public void moveDown(){
+        clearScreen();
+
+        topLeft.y += topLeft.ySpeed;
+        bottomRight.y += bottomRight.ySpeed;
+        Render();
+        System.out.println("\n");
+    }
 
     public void moveLeft(){
-		topLeft.x -= topLeft.xSpeed;
-		bottomRight.x -= bottomRight.xSpeed;
-	}
+        clearScreen();
 
-	public void moveRight(){
-		topLeft.x += topLeft.xSpeed;
-		bottomRight.x += bottomRight.xSpeed;
-	}
+        topLeft.x -= topLeft.xSpeed;
+        bottomRight.x -= bottomRight.xSpeed;
+        Render();
+        System.out.println("\n");
+    }
+
+    public void moveRight(){
+        clearScreen();
+
+        topLeft.x += topLeft.xSpeed;
+        bottomRight.x += bottomRight.xSpeed;
+        Render();
+        System.out.println("\n");
+
+    }
 
     public void Render(){
         int x1,tpleftx = topLeft.x,tplefty = topLeft.y;
