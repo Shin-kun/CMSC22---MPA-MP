@@ -1,8 +1,3 @@
-package LAB10;
-
-/**
- * Created by niervin on 10/15/2016.
- */
 /*
  *	Lab 10: File Reading and Writing with Lists
  *	performed by Michael Loewe L. Alivio, Michael Ervin B. Pacana, and Juan Carlos T. Roldan
