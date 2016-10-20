@@ -1,5 +1,3 @@
-package ProjectGame;
-
 /**
  * Created by niervin on 10/15/2016.
  */
