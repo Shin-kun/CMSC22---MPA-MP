@@ -1,0 +1,57 @@
+/**
+ * Created by niervin on 10/15/2016.
+ */
+public class Hero extends Character{
+    private int speed;
+    private int health;
+    private int mana;
+    private double exhaust; //sleepiness
+                            //exhaust is percent
+                            //optional
+    private int damage;
+    private int rep; //reputation
+
+    public Hero(String name){
+        super(name);
+        rep = 0;
+    }
+    //movable
+    public boolean moveUp() {
+        super.mes.y -= 1;
+        return true;
+    }
+    public boolean moveDown() {
+        super.mes.y += 1;
+        return true;
+    }
+    public boolean moveRight() {
+        super.mes.x += 1;
+        return true;
+    }
+    public boolean moveLeft() {
+        super.mes.x -= 1;
+        return true;
+    }
+    //movable
+
+    public boolean incHealth() {
+        health += 1;
+        return true;
+    }
+
+    public boolean decHealth() {
+        health -= 1;
+        return true;
+    }
+
+    public boolean minusRep() {
+        rep -= 1;
+        return true;
+    }
+
+    public boolean plusRep() {
+        rep += 1;
+        return true;
+    }
+
+}
