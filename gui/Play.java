@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 
 public class Play {
     private GameRPSPLS game;
+    private boolean mesbox = true;  // to know if the user enters the button, the message box will only appear once
     // to know what the player and the computer chose
     private static final int ROCK = 1;
     private static final int PAPER = 2;
@@ -36,42 +37,45 @@ public class Play {
     }
 
     public void gameOver(){
-        String disp = "";
-        if(playscore > comscore){   //to display the winner
-            disp += "PLAYER WINS!";
-        } else {
-            disp += "COMPUTER WINS!";
+        if(mesbox){
+            String disp = "";
+            if (playscore > comscore) {   //to display the winner
+                disp += "PLAYER WINS!";
+            } else {
+                disp += "COMPUTER WINS!";
+            }
+            //creating the dialog box
+            Dialog msg = new Dialog(new Frame(), "Game Over");
+            msg.setSize(220, 110);
+            msg.setLayout(new FlowLayout());
+            Label lbl1 = new Label(disp + " Play Again?");
+            Button yes = new Button("YES");
+            Button no = new Button("NO");
+            msg.add(lbl1);
+            msg.add(yes);
+            msg.add(no);
+
+            no.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    System.exit(0); // exit if no
+                }
+            });
+
+            yes.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    playscore = 0;  //resetting everything
+                    comscore = 0;
+                    msg.setVisible(false);
+                    game.txtfld1.setText(Integer.toString(playscore));
+                    game.txtfld2.setText(Integer.toString(comscore));
+                    mesbox = true;
+                }
+            });
+            mesbox = false;
+            msg.setVisible(true);
         }
-        //creating the dialog box
-        Dialog msg = new Dialog(new Frame(),"Game Over");
-        msg.setSize(220,110);
-        msg.setLayout(new FlowLayout());
-        Label lbl1 = new Label(disp + " Play Again?");
-        Button yes = new Button("YES");
-        Button no = new Button("NO");
-        msg.add(lbl1);
-        msg.add(yes);
-        msg.add(no);
-
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0); // exit if no
-            }
-        });
-
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                playscore = 0;  //resetting everything
-                comscore = 0;
-                msg.setVisible(false);
-                game.txtfld1.setText(Integer.toString(playscore));
-                game.txtfld2.setText(Integer.toString(comscore));
-            }
-        });
-
-        msg.setVisible(true);
     }
 
     public String gamePlay(){   //this is the gameplay....
