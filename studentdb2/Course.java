@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 /**
- * Created by niervin on 11/4/2016.
+ * Created by Loewe on 11/4/2016.
  */
 public class Course implements Serializable{
     private String courseCode;
