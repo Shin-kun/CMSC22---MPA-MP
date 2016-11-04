@@ -1,8 +1,7 @@
 import java.io.Serializable;
 
 /*
- *	Lab 10: File Reading and Writing with Lists
- *	performed by Michael Loewe L. Alivio, Michael Ervin B. Pacana, and Juan Carlos T. Roldan
+ *	Lab 10: File Serializing and Deserializing with Lists
  */
 
 public class Student implements Serializable{
