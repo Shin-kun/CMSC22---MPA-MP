@@ -1,8 +1,5 @@
 /*
- *	Lab 10: File Reading and Writing with Lists
- *	performed by Michael Loewe L. Alivio, Michael Ervin B. Pacana, and Juan Carlos T. Roldan
- *  latest edit by Juan Carlos Roldan 8:50 PM
- *  parts of code may be copied from Sir Nico Enego's file reading and writing repository
+ *	Lab 12: File Deserialization and Serialization 
  */
 
 import java.io.*;
@@ -98,7 +95,7 @@ public class Records {
                         break;
 
                     case 4:
-
+                        //SERIALIZING
                         fos = new FileOutputStream(fin);
                         oos = new ObjectOutputStream(fos);
                         oos.writeObject(record);
