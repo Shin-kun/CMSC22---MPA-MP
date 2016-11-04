@@ -1,5 +1,5 @@
 /*
- *	Lab 12: File Deserialization and Serialization 
+ *	Lab 12 Serialization and Deserialization
  */
 
 import java.io.*;
@@ -20,8 +20,6 @@ public class Records {
 
         //DESERIALIZATION
         try {
-            Student temp = new Student();
-            Course cos = new Course();
             Scanner in = new Scanner(System.in);
             List<Student> record = new LinkedList<Student>();
 
@@ -42,6 +40,8 @@ public class Records {
             do {
                 System.out.println("\t\tMenu\n\t1. Register student\n\t2. Search for a student\n\t3. Remove student from list\n\t4. Save\n\t5. Display list\n\t6. Update\n\t7. Exit");
                 choice = in.nextInt();
+                Student temp = new Student();
+                Course cos = new Course();
                 switch (choice) {
                     case 1:
                         Scanner ln = new Scanner(System.in); //using a different scanner object flushes the newline character
@@ -50,7 +50,6 @@ public class Records {
                         temp.setMiddleInitial(ln.nextLine().charAt(0));
                         temp.setLastName(ln.nextLine());
                         temp.setCourse(ln.nextLine());
-
                         try {
                             temp.setYearLevel(Integer.parseInt(ln.next()));
                         } catch (NumberFormatException e) {
@@ -95,7 +94,7 @@ public class Records {
                         break;
 
                     case 4:
-                        //SERIALIZING
+
                         fos = new FileOutputStream(fin);
                         oos = new ObjectOutputStream(fos);
                         oos.writeObject(record);
