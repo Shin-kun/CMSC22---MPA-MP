@@ -1,8 +1,4 @@
-package designpatterns;
 
-/**
- * Created by niervin on 11/25/2016.
- */
 public class Troll extends Character {
 
     public Troll(WeaponBehavior a){
