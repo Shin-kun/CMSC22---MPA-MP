@@ -1,8 +1,3 @@
-package designpatterns;
-
-/**
- * Created by niervin on 11/25/2016.
- */
 public class Knight extends Character {
 
     public Knight(WeaponBehavior a){
