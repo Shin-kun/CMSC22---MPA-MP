@@ -2,7 +2,6 @@
  * Created by Loewe on 12/5/2016.
  */
 
-//10 threads
 public class Rule30 extends Thread {
     private int start;
     private int end;
