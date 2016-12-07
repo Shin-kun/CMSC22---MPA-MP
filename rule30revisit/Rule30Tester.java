@@ -4,7 +4,7 @@
 import java.util.Scanner;
 
 public class Rule30Tester {
-    public static final int THREAD_COUNT = 6;
+    public static final int THREAD_COUNT = 10;
 
     public static  void main(String[] args){
         Rule30[] worker = new Rule30[THREAD_COUNT];
