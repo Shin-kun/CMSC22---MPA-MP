@@ -52,7 +52,6 @@ public class Rule30Tester {
 
             //combining the arrays;
             for(int j = 0; j < THREAD_COUNT; j++){
-                //System.out.println(worker[j]);
                 worker[j].changeArr(arr);
             }
         }
